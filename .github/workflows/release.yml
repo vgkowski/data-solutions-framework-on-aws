@@ -87,12 +87,6 @@ jobs:
         working-directory: examples
         run: setfacl --restore=permissions-backup.acl
         continue-on-error: true
-      - name: Prepare Repository
-        working-directory: framework
-        run: mv dist .repo
-      - name: Collect GitHub Metadata
-        working-directory: framework
-        run: mv .repo/dist dist
       - name: Release
         working-directory: framework
         env:
