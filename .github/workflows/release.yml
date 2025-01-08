@@ -121,20 +121,8 @@ jobs:
         working-directory: framework
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-      - name: Prepare Repository
-        working-directory: framework
-        run: mv dist .repo
-      - name: Install Dependencies
-        working-directory: framework
-        run: cd .repo && yarn install --check-files --frozen-lockfile
-      - name: Create js artifact
-        working-directory: framework
-        run: cd .repo && npx projen package:js
-      - name: Collect js Artifact
-        working-directory: framework
-        run: mv .repo/dist dist
       - name: Release
-        working-directory: framework
+        working-directory: framework/dist
         env:
           NPM_DIST_TAG: latest
           NPM_REGISTRY: registry.npmjs.org
@@ -165,18 +153,6 @@ jobs:
         working-directory: framework
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-      - name: Prepare Repository
-        working-directory: framework
-        run: mv dist .repo
-      - name: Install Dependencies
-        working-directory: framework
-        run: cd .repo && yarn install --check-files --frozen-lockfile
-      - name: Create python artifact
-        working-directory: framework
-        run: cd .repo && npx projen package:python
-      - name: Collect python Artifact
-        working-directory: framework
-        run: mv .repo/dist dist
       - name: Release
         uses: pypa/gh-action-pypi-publish@2f6f737ca5f74c637829c0f5c3acd0e29ea5e8bf #v1.8.11
         with:
